@@ -414,10 +414,8 @@ function build_wt {
 
   }
 
-sudo apt-get -y install git build-essential g++
 
 # used in TradeFrame
-sudo apt-get install libcurl4-openssl-dev
 
 #obtain_boost
 #build_boost
@@ -433,7 +431,46 @@ sudo apt-get install libcurl4-openssl-dev
 
 #install_chartdir
 
-build_wt
+#build_wt
+
+case "$1" in
+  base)
+    sudo apt-get -y install git build-essential g++
+    sudo apt-get install libcurl4-openssl-dev
+    extra_libs
+    ;;
+  boost)
+    obtain_boost
+    build_boost
+    ;;
+
+  wx)
+    obtain_wxwidgets
+    build_wxwidgets
+    ;;
+
+  glm)
+    install_glm
+    ;;
+
+  hdf5)
+    build_hdf5_set
+    ;;
+
+  chartdir)
+    install_chartdir
+    ;;
+
+  wt)
+    build_wt
+    ;;
+
+  *)
+    printf "\nusage:  ./auto.sh {base|boost|wx|glm|hdf5|chartdir|wt}\n\n"
+    ;;
+  esac
+
+
 
 #  542  wget http://www.openal-soft.org/openal-releases/openal-soft-1.17.1.tar.bz2
 #  544  cd t
