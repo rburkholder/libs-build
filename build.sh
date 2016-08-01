@@ -323,7 +323,7 @@ function install_chartdir {
   tar zxvf ${chartdir_arc}
  
 
-  sudo chown root.staffChartDirector/include
+  sudo chown root.staff ChartDirector/include
   sudo mv ChartDirector/include /usr/local/include/chartdir
 
   sudo chown -R root.staff ChartDirector/lib/*
@@ -466,7 +466,7 @@ case "$1" in
     ;;
 
   *)
-    printf "\nusage:  ./auto.sh {base|boost|wx|glm|hdf5|chartdir|wt}\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt}\n\n"
     ;;
   esac
 
