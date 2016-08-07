@@ -208,6 +208,11 @@ zlib_name="zlib-${zlib_ver}"
 zlib_arc="${zlib_name}.tar.gz"
 
 function build_zlib {
+
+  if [ "1" == "${clean}" ]; then
+    rm ${zlib_arc}
+    rm -rf ${zlib_name}
+    fi
   
   if [ -e ${zlib_arc} ]
     then echo ${zlib_arc} exists
@@ -304,9 +309,9 @@ function build_hdf5 {
 
 function build_hdf5_set {
 
-#  build_szip
+  build_szip
   build_zlib
-#  build_hdf5
+  build_hdf5
 
   }
 
@@ -416,22 +421,20 @@ function build_wt {
 
 
 # used in TradeFrame
+#  base
+#  boost
+#  wx
+#  hdf5
+#  chartdir
 
-#obtain_boost
-#build_boost
+# used by simulant
+#  glm
 
-#obtain_wxwidgets
-#build_wxwidgets
-
-#install_glm
-
-#extra_libs
-
-#build_hdf5_set
-
-#install_chartdir
-
-#build_wt
+case "$2" in
+  clean)
+    clean="1"
+    ;;
+  esac
 
 case "$1" in
   base)
@@ -465,8 +468,12 @@ case "$1" in
     build_wt
     ;;
 
+  zlib)
+    build_zlib
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt}\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib} [clean]\n\n"
     ;;
   esac
 
