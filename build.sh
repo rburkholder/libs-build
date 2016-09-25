@@ -26,31 +26,20 @@ function obtain_boost {
     else
       echo downloading ${boost_tar} ...
       wget http://downloads.sourceforge.net/project/boost/boost/${boost_ver}/${boost_tar}
-      tar zxvf ${boost_tar}
       fi
 
   if [ -d ${boost_dir} ]
-    then echo boost archive already expanded
+    then echo ${boost_dir} archive already expanded
     else
-      echo building ${boost_dir} ...
+      tar zxvf ${boost_tar}
       pushd ${boost_dir}
-      ./booststrap.sh
+      ./bootstrap.sh
       popd
       fi
+
   }
 
 function build_boost {
-
-  echo ensure prerequisite packages are installed
-
-  # I don't think the correct ICU library is installed, boost doesn't build icu
-  sudo apt-get install \
-    g++ \
-    zlib1g-dev \
-    zlib1g \
-    libbz2-dev \
-    python-dev \
-    libicu-dev
 
   #bjam install --toolset=gcc --prefix=/usr/local --layout=tagged variant=debug threading=multi link=static 
   #./b2 --layout=versioned toolset=gcc variant=debug \
@@ -77,7 +66,7 @@ function obtain_wxwidgets {
 
   echo obtaining wxwidgets ...
 
-  sudo apt-get install bzip2
+  sudo apt-get -y install bzip2
 
   if [ -e ${wxwidgets_bz2} ]
     then echo ${wxwidgets_bz2} exists
@@ -96,6 +85,9 @@ function obtain_wxwidgets {
     then echo ${wxwidgets_name} exists
     else
       tar xvf ${wxwidgets_tar}
+      # note this applies to wxwidgets 3.0.2 where an older scintilla is included, recent versions are fixed
+      sed -i 's/(abs(pt1/(std::abs(pt1/g' ${wxwidgets_name}/src/stc/scintilla/src/Editor.cxx
+      sed -i '/include <string>/i #include <cmath>' ${wxwidgets_name}/src/stc/scintilla/src/Editor.cxx
       fi
 
   }
@@ -103,9 +95,6 @@ function obtain_wxwidgets {
 function build_wxwidgets {
 
   echo building wxwidgets ...
-
-  sudo apt-get install libgtk-3-dev mesa-common-dev libglu1-mesa-dev
-#wx_gtk3u_gl-3.1
 
   if [ -d ${wxwidgets_name} ]
     then
@@ -131,7 +120,7 @@ function install_glm {
 
   echo obtaining ${glm_name} ...
 
-  sudo apt-get install unzip
+  sudo apt-get -y install unzip
   
   if [ -e ${glm_zip} ]
     then echo ${glm_zip} exists
@@ -161,8 +150,8 @@ function install_glm {
   }
 
 function multimedia_libs {
-  #sudo apt-get install ffmpeg-doc ffmpeg-dbg \
-  sudo apt-get install ffmpeg ffmpeg-doc \
+  #sudo apt-get -y install ffmpeg-doc ffmpeg-dbg \
+  sudo apt-get -y install ffmpeg ffmpeg-doc \
          libavcodec-dev libavformat-dev libavresample-dev libavutil-dev \
          libpostproc-dev libswresample-dev libswscale-dev libavfilter-dev libavdevice-dev
 
@@ -210,6 +199,12 @@ zlib_arc="${zlib_name}.tar.gz"
 function build_zlib {
 
   if [ "1" == "${clean}" ]; then
+    if [ -d ${zlib_name} ]; then
+      pushd ${zlib_name}
+      make clean
+      sudo make uninstall
+      popd
+      fi
     rm ${zlib_arc}
     rm -rf ${zlib_name}
     fi
@@ -285,8 +280,9 @@ function build_hdf5 {
       tar zxvf ${hdf5_arc}
       fi
 
-  if [ -d ${hdf5_name} ]
-    then
+  if [ -e /usr/local/lib/libhdf5.a ]
+    then echo ${hdf5_name} libraries installed
+    else
 
       pushd ${hdf5_name}
 
@@ -319,20 +315,32 @@ chartdir_arc="chartdir_cpp_linux_64.tar.gz"
 
 function install_chartdir {
 
+  if [ "1" == "${clean}" ]; then
+    sudo rm /usr/local/lib/libchartdir*
+    sudo rm -rf /usr/local/include/chartdir
+    sudo rm -rf /usr/local/lib/fonts
+    sudo rm -rf ChartDirector
+#    rm ${chartdir_arc}
+    fi
+
   if [ -e ${chartdir_arc} ]
     then echo ${chartdir_arc} exists
     else
       wget http://download2.advsofteng.com/chartdir_cpp_linux_64.tar.gz
       fi
 
-  tar zxvf ${chartdir_arc}
- 
+  if [ -d ChartDirector ]
+    then echo directory ChartDirector exists
+    else
+      tar zxvf ${chartdir_arc}
 
-  sudo chown root.staff ChartDirector/include
-  sudo mv ChartDirector/include /usr/local/include/chartdir
+      sudo chown -R root.staff ChartDirector/include
+      sudo mv ChartDirector/include /usr/local/include/chartdir
 
-  sudo chown -R root.staff ChartDirector/lib/*
-  sudo mv ChartDirector/lib/* /usr/local/lib/
+      sudo chown -R root.staff ChartDirector/lib/*
+      sudo mv ChartDirector/lib/* /usr/local/lib/
+
+      fi
 
 
   }
@@ -438,24 +446,62 @@ function build_wt {
 
   }
 
+function base {
+  sudo apt-get -y install git build-essential g++
+  }
 
-# used in TradeFrame
-#  base
-#  boost
-#  wx
-#  hdf5
-#  chartdir
+function zlib {
+  build_zlib
+  }
 
-# used by nodestar
-#  base
-#  boost
-#  wt
+function boost {  
 
-# used by simulant
-#  multimedia
-#  glm
+  echo ensure prerequisite packages are installed
+
+  # I don't think the correct ICU library is installed, boost doesn't build icu
+  sudo apt-get -y install \
+    g++ \
+    zlib1g-dev \
+    zlib1g \
+    libbz2-dev \
+    python-dev \
+    libicu-dev
+ 
+  zlib
+  obtain_boost
+  build_boost
+  }
 
 
+function wx {
+
+  sudo apt-get -y install libgtk-3-dev mesa-common-dev libglu1-mesa-dev
+  sudo apt-get -y install libnotify-dev libjpeg62-turbo-dev libtiff5-dev
+#wx_gtk3u_gl-3.1
+
+  obtain_wxwidgets
+  build_wxwidgets
+  }
+
+function hdf5 {
+  build_hdf5_set
+  }
+
+function chartdir {
+  install_chartdir
+  }
+
+function wt {
+  build_wt
+  }
+
+function glm {
+  install_glm
+  }
+
+function multimedia {
+  multimedia_libs
+  }
 
 case "$2" in
   clean)
@@ -465,46 +511,63 @@ case "$2" in
 
 case "$1" in
   base)
-    sudo apt-get -y install git build-essential g++
-    sudo apt-get install libcurl4-openssl-dev
+    base
     ;;
 
   zlib)
-    build_zlib
+    zlib
     ;;
 
   boost)
-    obtain_boost
-    build_boost
+    boost
     ;;
 
   wx)
-    obtain_wxwidgets
-    build_wxwidgets
+    wx
     ;;
 
   hdf5)
-    build_hdf5_set
+    hdf5
     ;;
 
   chartdir)
-    install_chartdir
+    chartdir
     ;;
 
   wt)
-    build_wt
+    wt
     ;;
 
   glm)
-    install_glm
+    glm
     ;;
 
   multimedia)
-    multimedia_libs
+    multimedia
+    ;;
+
+  tradeframe)
+    base
+    sudo apt-get -y install libcurl4-openssl-dev
+    boost
+    wx
+    hdf5
+    chartdir
+    ;;
+
+  nodestar)
+    base
+    boost
+    wt
+    ;;
+
+  simulant)
+    multimedia
+    glm
     ;;
 
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe} [clean]\n\n"
     ;;
   esac
 
