@@ -503,6 +503,26 @@ function multimedia {
   multimedia_libs
   }
 
+function deleteall {
+  sudo rm /usr/local/lib/libboost*
+  sudo rm /usr/local/lib/libchardir*
+  sudo rm /usr/local/lib/libchartdir*
+  sudo rm -rf /usr/local/lib/fonts
+  sudo rm /usr/local/lib/libz*
+  sudo rm -rf /usr/local/lib/pkgconfig
+  sudo rm /usr/local/lib/libwx*
+  sudo rm /usr/local/lib/libsz*
+  sudo rm /usr/local/lib/libhdf5*
+  sudo rm -rf /usr/local/lib/wx
+  sudo rm -rf /usr/local/include/hdf5
+  sudo rm -rf /usr/local/include/wx*
+  sudo rm -rf /usr/local/include/boost*
+  sudo rm -rf /usr/local/include/zlib
+  sudo rm -rf /usr/local/include/chartdir
+  sudo rm /usr/local/include/sz*
+  sudo rm /usr/local/include/ricehdf*
+  }
+
 case "$2" in
   clean)
     clean="1"
