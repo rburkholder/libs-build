@@ -521,6 +521,9 @@ function deleteall {
   sudo rm -rf /usr/local/include/chartdir
   sudo rm /usr/local/include/sz*
   sudo rm /usr/local/include/ricehdf*
+  sudo rm /usr/local/bin/h5*
+  sudo rm /usr/local/bin/wx*
+  sudo rm -rf /usr/local/share/hdf5*
   }
 
 case "$2" in
