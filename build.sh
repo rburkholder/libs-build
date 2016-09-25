@@ -160,7 +160,7 @@ function install_glm {
 
   }
 
-function extra_libs {
+function multimedia_libs {
   #sudo apt-get install ffmpeg-doc ffmpeg-dbg \
   sudo apt-get install ffmpeg ffmpeg-doc \
          libavcodec-dev libavformat-dev libavresample-dev libavutil-dev \
@@ -337,27 +337,7 @@ function install_chartdir {
 
   }
 
-function build_wt {
-
-  sudo apt-get -y install \
-    zlib1g-dev \
-    zlib1g \
-    libbz2-dev \
-    python-dev \
-    graphviz-dev \
-    libicu-dev \
-    cmake \
-    libgd2-xpm-dev \
-    libssl-dev \
-    autoconf \
-    libgraphicsmagick++1-dev \
-    libpq-dev \
-    libpango1.0-dev \
-    liblzma-dev \
-    imagemagick \
-    libmagick++-dev \
-    libglew-dev
-
+function build_libharu {
   if [ -e libharu.tar.gz ]
     then echo libharu.tar.gz exists
     else
@@ -381,41 +361,80 @@ function build_wt {
 
       popd
       fi
+  }
 
-  if [ -d wt ]
-    then echo wt exists
-    else
- 
-      git clone git://github.com/kdeforche/wt.git
+function build_wt {
+
+  if [ "1" == "${clean}" ]; then
+    if [ -d wt ]; then 
       pushd wt
-      mkdir build
-      cd build
-      cmake \
-        -D MULTI_THREADED=ON \
-        -D RUNDIR=/var/www/wt \
-        -D WEBUSER=www-data \
-        -D WEBGROUP=www-data \
-        -D BOOST_ROOT=/usr/local \
-        -D BOOST_LIBRARYDIR=/usr/local/lib \
-        -D BOOST_INCLUDEDIR=/usr/local/include/boost \
-        -D SHARED_LIBS=ON \
-        -D CONNECTOR_FCGI=OFF \
-        -D CONNECTOR_HTTP=ON \
-        -D USERLIB_PREFIX=lib \
-        -D Boost_USE_STATIC_LIBS=OFF \
-        -D Boost_USE_STATIC_RUNTIME=OFF \
-        -D CONFIGDIR=/etc/wt \
-        -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D WT_CPP_11_MODE=-std=c++11 \
-        -D WT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick \
-        ../
-      make 
-      sudo make install
-      sudo mkdir /var/www/wt/resources
-      sudo ln -s /usr/local/share/Wt/resources /var/www/wt/resources
-      
+      if [ -d build ]; then
+        pushd build
+        make clean
+        rm -rf /var/www/wt
+        popd
+        fi
       popd
+      rm -rf wt
       fi
+    fi
+
+  if [ -d wt ]; then 
+    echo wt exists
+  else
+
+    sudo apt-get -y install \
+      zlib1g-dev \
+      zlib1g \
+      libbz2-dev \
+      python-dev \
+      graphviz-dev \
+      libicu-dev \
+      cmake \
+      libgd2-xpm-dev \
+      libssl-dev \
+      autoconf \
+      libgraphicsmagick++1-dev \
+      libpq-dev \
+      libpango1.0-dev \
+      liblzma-dev \
+      imagemagick \
+      libmagick++-dev \
+      libglew-dev
+
+    build_libharu
+
+    git clone git://github.com/kdeforche/wt.git
+    pushd wt
+    mkdir build
+    cd build
+    cmake \
+      -D MULTI_THREADED=ON \
+      -D RUNDIR=/var/www/wt \
+      -D WEBUSER=www-data \
+      -D WEBGROUP=www-data \
+      -D BOOST_ROOT=/usr/local \
+      -D BOOST_LIBRARYDIR=/usr/local/lib \
+      -D BOOST_INCLUDEDIR=/usr/local/include/boost \
+      -D SHARED_LIBS=ON \
+      -D CONNECTOR_FCGI=OFF \
+      -D CONNECTOR_HTTP=ON \
+      -D USERLIB_PREFIX=lib \
+      -D Boost_USE_STATIC_LIBS=OFF \
+      -D Boost_USE_STATIC_RUNTIME=OFF \
+      -D CONFIGDIR=/etc/wt \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D WT_CPP_11_MODE=-std=c++11 \
+      -D WT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick \
+      ../
+
+    make 
+    sudo make install
+    sudo mkdir -p /var/www/wt
+    sudo ln -s /usr/local/share/Wt/resources /var/www/wt/resources
+    
+    popd
+    fi
 
   }
 
@@ -427,8 +446,16 @@ function build_wt {
 #  hdf5
 #  chartdir
 
+# used by nodestar
+#  base
+#  boost
+#  wt
+
 # used by simulant
+#  multimedia
 #  glm
+
+
 
 case "$2" in
   clean)
@@ -440,8 +467,12 @@ case "$1" in
   base)
     sudo apt-get -y install git build-essential g++
     sudo apt-get install libcurl4-openssl-dev
-    extra_libs
     ;;
+
+  zlib)
+    build_zlib
+    ;;
+
   boost)
     obtain_boost
     build_boost
@@ -450,10 +481,6 @@ case "$1" in
   wx)
     obtain_wxwidgets
     build_wxwidgets
-    ;;
-
-  glm)
-    install_glm
     ;;
 
   hdf5)
@@ -468,12 +495,16 @@ case "$1" in
     build_wt
     ;;
 
-  zlib)
-    build_zlib
+  glm)
+    install_glm
+    ;;
+
+  multimedia)
+    multimedia_libs
     ;;
 
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia} [clean]\n\n"
     ;;
   esac
 
@@ -489,4 +520,5 @@ case "$1" in
 #  572  cmake ..
 #  573  make
 #  574  ./openal-info
+
 
