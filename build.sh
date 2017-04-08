@@ -192,7 +192,7 @@ function build_szip {
 
   }
 
-zlib_ver="1.2.8"
+zlib_ver="1.2.11"
 zlib_name="zlib-${zlib_ver}"
 zlib_arc="${zlib_name}.tar.gz"
 
@@ -243,14 +243,22 @@ function build_zlib {
       sed -i "s/zutil.o$/zutil.o ioapi.o ioapi_mem.o unzip.o/" Makefile.in
       sed -i "s/zutil.lo$/zutil.lo ioapi.lo ioapi_mem.lo unzip.lo/" Makefile.in
       
+      for name in "unzip" "ioapi" "ioapi_mem"; do 
+	      echo " " >> Makefile.in
+	      echo "${name}.lo: \$(SRCDIR)${name}.c" >> Makefile.in
+	      echo "	-@mkdir objs 2>/dev/null || test -d objs" >> Makefile.in
+	      echo "	\$(CC) \$(SFLAGS) \$(ZINC) -DPIC -c -o objs/${name}.o \$(SRCDIR)${name}.c" >> Makefile.in
+	      echo "	-@mv objs/${name}.o \$@" >> Makefile.in
+      done
+
       #./configure --64 --static --prefix=/usr/local --includedir=/usr/local/include/zlib
       ./configure --64 --prefix=/usr/local --includedir=/usr/local/include/zlib
       make
       sudo make install
       
-      sudo cp ioapi.h /usr/local/include/zlib
-      sudo cp ioapi_mem.h /usr/local/include/zlib
-      sudo cp unzip.h /usr/local/include/zlib
+      sudo cp ioapi.h /usr/local/include/zlib/
+      sudo cp ioapi_mem.h /usr/local/include/zlib/
+      sudo cp unzip.h /usr/local/include/zlib/
 
       sudo ldconfig
       # to look at symbol table:
@@ -262,7 +270,7 @@ function build_zlib {
   
   }
 
-hdf5_ver="1.8.17"
+hdf5_ver="1.8.18"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
 
@@ -271,7 +279,7 @@ function build_hdf5 {
   if [ -e ${hdf5_arc} ]
     then echo ${hdf5_arc} exists
     else
-      wget http://www.hdfgroup.org/ftp/HDF5/current/src/${hdf5_arc}
+      wget http://www.hdfgroup.org/ftp/HDF5/current18/src/${hdf5_arc}
       fi
 
   if [ -d ${hdf5_name} ]
