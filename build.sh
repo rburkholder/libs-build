@@ -160,7 +160,7 @@ function multimedia_libs {
   sudo apt-get -y install libopenal-data libopenal1  libopenal1-dbg  libopenal-dev
   }
 
-szip_ver="2.1"
+szip_ver="2.1.1"
 szip_name="szip-${szip_ver}"
 szip_arc="${szip_name}.tar.gz"
 szip_lib="/usr/local/lib/libsz.a"
@@ -270,7 +270,7 @@ function build_zlib {
   
   }
 
-hdf5_ver="1.8.18"
+hdf5_ver="1.8.19"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
 
