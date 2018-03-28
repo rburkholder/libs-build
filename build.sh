@@ -12,7 +12,7 @@
 #   optional verbose
 #   optional clean up / removal of old source
 
-boost_ver='1.61.0'
+boost_ver='1.65.1'
 boost_ver_us=${boost_ver//\./_}
 boost_tar="boost_${boost_ver_us}.tar.gz"
 boost_dir="boost_${boost_ver_us}"
@@ -48,7 +48,7 @@ function build_boost {
   echo 'building boost (needs root priv to install)'
 
   pushd ${boost_dir}
-  sudo ./b2 --layout=versioned toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j4 install
+  sudo ./b2 --layout=versioned toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
   if [ -h /usr/local/include/boost ]
     then sudo rm /usr/local/include/boost
     fi
@@ -399,7 +399,7 @@ function build_wt {
     echo wt exists
   else
 
-    sudo apt-get -y install \
+    sudo apt-get -y --no-install-recommends install \
       zlib1g-dev \
       zlib1g \
       libbz2-dev \
@@ -440,9 +440,10 @@ function build_wt {
       -D Boost_USE_STATIC_RUNTIME=OFF \
       -D CONFIGDIR=/etc/wt \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D WT_CPP_11_MODE=-std=c++11 \
       -D WT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick \
       ../
+
+#      -D WT_CPP_11_MODE=-std=c++11  deprecated?
 
     make 
     sudo make install
@@ -468,6 +469,7 @@ function boost {
 
   # I don't think the correct ICU library is installed, boost doesn't build icu
   sudo apt-get -y install \
+    make \
     g++ \
     zlib1g-dev \
     zlib1g \
