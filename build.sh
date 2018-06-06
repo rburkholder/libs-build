@@ -12,7 +12,7 @@
 #   optional verbose
 #   optional clean up / removal of old source
 
-boost_ver='1.61.0'
+boost_ver='1.67.0'
 boost_ver_us=${boost_ver//\./_}
 boost_tar="boost_${boost_ver_us}.tar.gz"
 boost_dir="boost_${boost_ver_us}"
@@ -440,7 +440,6 @@ function build_wt {
       -D Boost_USE_STATIC_RUNTIME=OFF \
       -D CONFIGDIR=/etc/wt \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D WT_CPP_11_MODE=-std=c++11 \
       -D WT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick \
       ../
 
