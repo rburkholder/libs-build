@@ -513,6 +513,16 @@ function multimedia {
   multimedia_libs
   }
 
+function libsodium {
+   pushd
+   git clone https://github.com/jedisct1/libsodium --branch stable
+   cd libsodium/
+   ./configure --with-pthreads
+   make
+   #make check
+   sudo make install
+  }
+
 function deleteall {
   sudo rm /usr/local/lib/libboost*
   sudo rm /usr/local/lib/libchardir*
@@ -534,6 +544,8 @@ function deleteall {
   sudo rm /usr/local/bin/h5*
   sudo rm /usr/local/bin/wx*
   sudo rm -rf /usr/local/share/hdf5*
+  sudo rm /usr/local/include/sodium
+  sudo rm /usr/local/lib/libsodium*
   }
 
 case "$2" in
@@ -599,8 +611,13 @@ case "$1" in
     glm
     ;;
 
+  libsodium)
+    base
+    libsodium
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium} [clean]\n\n"
     ;;
   esac
 
