@@ -48,7 +48,8 @@ function build_boost {
   echo 'building boost (needs root priv to install)'
 
   pushd ${boost_dir}
-  sudo ./b2 --layout=versioned toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
+  #sudo ./b2 --layout=versioned toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
+  sudo ./b2 --layout=tagged toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
   if [ -h /usr/local/include/boost ]
     then sudo rm /usr/local/include/boost
     fi
@@ -270,7 +271,7 @@ function build_zlib {
   
   }
 
-hdf5_ver="1.8.19"
+hdf5_ver="1.8.20"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
 
@@ -334,7 +335,7 @@ function install_chartdir {
   if [ -e ${chartdir_arc} ]
     then echo ${chartdir_arc} exists
     else
-      wget http://download2.advsofteng.com/chartdir_cpp_linux_64.tar.gz
+      wget http://www.advsofteng.net/chartdir_cpp_linux_64.tar.gz
       fi
 
   if [ -d ChartDirector ]
