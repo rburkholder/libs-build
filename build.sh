@@ -457,7 +457,7 @@ function build_wt {
   }
 
 function base {
-  sudo apt-get -y install git build-essential g++
+  sudo apt-get -y install git build-essential g++ wget
   }
 
 function zlib {
