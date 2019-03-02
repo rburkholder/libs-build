@@ -271,7 +271,7 @@ function build_zlib {
   
   }
 
-hdf5_ver="1.8.20"
+hdf5_ver="1.8.21"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
 
