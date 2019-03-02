@@ -19,8 +19,8 @@ The library manager apt-get is used extensively.
 * libraries are installed into /usr/local/lib 
 * includes are placed in /usr/local/include
 
-This script calls sudo in several places.  When running this in a container,
-ensure that sudo as been installed:
+This script needs to be run as a non-root user, and does call sudo in several places.  
+When running this in a container, ensure that sudo has been installed:
 
 ```
 apt install sudo
