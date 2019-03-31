@@ -12,7 +12,7 @@
 #   optional verbose
 #   optional clean up / removal of old source
 
-boost_ver='1.67.0'
+boost_ver='1.69.0'
 boost_ver_us=${boost_ver//\./_}
 boost_tar="boost_${boost_ver_us}.tar.gz"
 boost_dir="boost_${boost_ver_us}"
