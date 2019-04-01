@@ -54,6 +54,7 @@ function build_boost {
     then sudo rm /usr/local/include/boost
     fi
   sudo ln -s /usr/local/include/boost-${boost_ver_us:0:4}/boost /usr/local/include/boost
+  sudo ldconfig
   popd
 
   }
