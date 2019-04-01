@@ -405,10 +405,10 @@ function build_wt {
       zlib1g \
       libbz2-dev \
       python-dev \
-      graphviz-dev \
+      libgraphviz-dev \
       libicu-dev \
       cmake \
-      libgd2-xpm-dev \
+      libgd-dev \
       libssl-dev \
       autoconf \
       libgraphicsmagick++1-dev \
