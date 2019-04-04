@@ -48,8 +48,8 @@ function build_boost {
   echo 'building boost (needs root priv to install)'
 
   pushd ${boost_dir}
-  #sudo ./b2 --layout=versioned toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
-  sudo ./b2 --layout=tagged toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
+  sudo ./b2 --layout=versioned toolset=gcc cxxflags=-std=gnu++17 variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
+  #sudo ./b2 --layout=tagged toolset=gcc variant=release link=shared threading=multi runtime-link=shared address-model=64 -j2 install
   if [ -h /usr/local/include/boost ]
     then sudo rm /usr/local/include/boost
     fi
