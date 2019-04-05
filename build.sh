@@ -438,14 +438,16 @@ function build_wt {
       -D CONNECTOR_FCGI=OFF \
       -D CONNECTOR_HTTP=ON \
       -D USERLIB_PREFIX=lib \
+      -D WT_BOOST_DISCOVERY=OFF \
+      -D Boost_ARCHITECTURE=-x64 \
+      -D CMAKE_CXX_COMPILER_ARCHITECTURE_ID=x64 \
+      -D CMAKE_CXX_STANDARD=17 \
       -D Boost_USE_STATIC_LIBS=OFF \
       -D Boost_USE_STATIC_RUNTIME=OFF \
       -D CONFIGDIR=/etc/wt \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
       -D WT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick \
       ../
-
-#      -D WT_CPP_11_MODE=-std=c++11  deprecated?
 
     make 
     sudo make install
