@@ -272,7 +272,8 @@ function build_zlib {
   
   }
 
-hdf5_ver="1.8.21"
+#hdf5_ver="1.8.21"
+hdf5_ver="1.10.5"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
 
@@ -281,7 +282,8 @@ function build_hdf5 {
   if [ -e ${hdf5_arc} ]
     then echo ${hdf5_arc} exists
     else
-      wget http://www.hdfgroup.org/ftp/HDF5/current18/src/${hdf5_arc}
+#      wget http://www.hdfgroup.org/ftp/HDF5/current18/src/${hdf5_arc}
+      wget https://support.hdfgroup.org/ftp/HDF5/current/src/${hdf5_arc}
       fi
 
   if [ -d ${hdf5_name} ]
@@ -300,8 +302,10 @@ function build_hdf5 {
       cd buildDebug
     
       export LD_LIBRARY_PATH=/usr/local/lib
+      export CXXFLAGS=-std=c++17
 
-      ../configure --prefix=/usr/local --enable-cxx --enable-shared --enable-static --enable-production --enable-deprecated-symbols=yes --with-zlib --with-szlib --includedir=/usr/local/include/hdf5
+      #../configure --prefix=/usr/local --enable-cxx --enable-shared --enable-static --enable-build-mode=production --enable-deprecated-symbols=yes --with-zlib --with-szlib --includedir=/usr/local/include/hdf5
+      ../configure --prefix=/usr/local --enable-cxx --enable-shared --enable-static --enable-build-mode=production --with-zlib --with-szlib --includedir=/usr/local/include/hdf5
       #--enable-debug=all 
       make
       sudo make install
