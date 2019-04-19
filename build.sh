@@ -529,7 +529,26 @@ function libsodium {
    make
    #make check
    sudo make install
+   popd
   }
+
+function cassandra {
+  sudo apt -y install libuv1-dev libssl-dev libssl1.1
+  git clone https://github.com/datastax/cpp-driver.git
+  pushd cpp-driver
+  mkdir build
+  cd build
+  cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_STANDARD=17 \
+    -DCASS_USE_STD_ATOMIC=ON \
+    -DCASS_USE_ZLIB=ON ..
+#    -DCASS_BUILD_STATIC=ON \
+#    -DCASS_USE_STATIC_LIBS=ON \
+  make
+  sudo make install
+  popd
+}
 
 function deleteall {
   sudo rm /usr/local/lib/libboost*
@@ -624,8 +643,13 @@ case "$1" in
     libsodium
     ;;
 
+  cassandra)
+    base
+    cassandra
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra} [clean]\n\n"
     ;;
   esac
 
