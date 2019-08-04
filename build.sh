@@ -431,6 +431,7 @@ function build_wt {
     mkdir build
     cd build
     cmake \
+      -D CMAKE_BUILD_TYPE=Release \
       -D MULTI_THREADED=ON \
       -D RUNDIR=/var/www/wt \
       -D WEBUSER=www-data \
