@@ -551,6 +551,18 @@ function cassandra {
   popd
 }
 
+function vmime {
+  git clone git://github.com/kisli/vmime
+  pushd vmime
+  mkdir build
+  cd build
+  sudo apt install libgsasl7-dev libgnutls30 libgnutls28-dev ninja-build
+  cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+  cmake --build .
+  sudo ninja install
+  popd
+  }
+
 function deleteall {
   sudo rm /usr/local/lib/libboost*
   sudo rm /usr/local/lib/libchardir*
@@ -649,8 +661,13 @@ case "$1" in
     cassandra
     ;;
 
+  vmime)
+    base
+    vmime
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime} [clean]\n\n"
     ;;
   esac
 
