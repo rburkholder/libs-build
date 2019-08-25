@@ -563,6 +563,22 @@ function vmime {
   popd
   }
 
+function libnl {
+  sudo apt install m4
+  sudo apt install asciidoc source-highlight mscgen doxygen
+  sudo apt install python-pygments python3-pygments
+  git clone https://github.com/thom311/libnl.git
+  pushd libnl
+  ./autogen.sh
+  ./configure
+  make
+  sudo make install
+  cd doc
+  make gendoc
+  popd
+  # libnl/doc/api/index.html for start of documentation
+}
+
 function deleteall {
   sudo rm /usr/local/lib/libboost*
   sudo rm /usr/local/lib/libchardir*
@@ -586,6 +602,8 @@ function deleteall {
   sudo rm -rf /usr/local/share/hdf5*
   sudo rm /usr/local/include/sodium
   sudo rm /usr/local/lib/libsodium*
+  sudo rm -rf /usr/local/lib/libnl*
+  sudo rm -rf /usr/local/include/libnl3
   }
 
 case "$2" in
@@ -666,8 +684,13 @@ case "$1" in
     vmime
     ;;
 
+  libnl)
+    base
+    libnl
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl} [clean]\n\n"
     ;;
   esac
 
