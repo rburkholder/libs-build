@@ -6,13 +6,13 @@
 
 # started: 2016/07/16
 
-# designed for debian stretch/testing
+# designed for debian buster/bullseye
 
 # todo:
 #   optional verbose
 #   optional clean up / removal of old source
 
-boost_ver='1.69.0'
+boost_ver='1.77.0'
 boost_ver_us=${boost_ver//\./_}
 boost_tar="boost_${boost_ver_us}.tar.gz"
 boost_dir="boost_${boost_ver_us}"
@@ -59,7 +59,7 @@ function build_boost {
 
   }
 
-wxwidgets_ver='3.0.4'
+wxwidgets_ver='3.0.5'
 wxwidgets_name="wxWidgets-${wxwidgets_ver}"
 wxwidgets_tar="${wxwidgets_name}.tar"
 wxwidgets_bz2="${wxwidgets_tar}.bz2"
@@ -276,6 +276,18 @@ function build_zlib {
 hdf5_ver="1.10.5"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
+
+# an example cmake based build which could be evaluated in a subsequent iteration
+#  may have some build issues though
+#cmake .. -DCMAKE_INSTALL_PREFIX=${prefix} \
+#    -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TARGET_TOOLCHAIN} \
+#    -DHDF5_BUILD_CPP_LIB=OFF \
+#    -DONLY_SHARED_LIBS=ON \
+#    -DHDF5_BUILD_HL_LIB=ON \
+#    -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+#    -DHDF5_ENABLE_SZIP_SUPPORT=OFF \
+#    -DHDF5_ENABLE_SZIP_ENCODING=OFF \
+#    -DBUILD_TESTING=OFF
 
 function build_hdf5 {
 
