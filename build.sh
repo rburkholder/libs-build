@@ -591,6 +591,67 @@ function libnl {
   # libnl/doc/api/index.html for start of documentation
 }
 
+# CERN's ROOT Data Analysis Framework
+function rdaf {
+
+  sudo apt install \
+    libxxhash-dev \
+    libgsl-dev gsl-bin \
+    libgl2ps-dev \
+    libsqlite3-dev \
+    libfftw3-dev \
+    libcfitsio-dev \
+    libgfal2-dev \
+    libftgl-dev \
+    davix-dev \
+    libtbb-dev \
+    libtorch-dev \
+    libgraphviz-dev \
+    libcaffe-dev
+
+  if [ "1" == "${clean}" ] then
+    rdaf_clean
+    fi
+
+  if [ -d rdaf ]
+    then echo directory rdaf exists, perform pull instead
+    else
+      git clone --branch latest-stable https://github.com/root-project/root.git rdaf
+      fi
+
+  pushd rdaf
+    mkdir _build _install
+    cd _build
+    # -DCMAKE_BUILD_TYPE=[Release|MinSizeRel|Debug|RelWithDebInfo|Optimized]
+    cmake \
+      -Dgnuinstall=ON \
+      -DCMAKE_CXX_STANDARD=17 \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr/local/rdaf \
+      -DCMAKE_INSTALL_LIBDIR=/usr/local/lib/rdaf \
+      -DCMAKE_INSTALL_INCLUDEDIR=/usr/local/include/rdaf \
+      -DCMAKE_INSTALL_SYSCONFDIR=/usr/local/etc/rdaf \
+      -DCMAKE_INSTALL_DATAROOTDIR=/usr/local/share \
+      -DCMAKE_INSTALL_BINDIR=/usr/local/bin/rdaf \
+      ..
+    # cmake --build . --target install -- -j2
+    cmake --build . -- -j2
+    sudo cmake --build . --target install
+    sudo ldconfig
+  popd
+
+}
+
+rdaf_clean {
+  sudo rm -rf /usr/local/include/rdaf
+  sudo rm -rf /usr/local/lib/rdaf
+  sudo rm -rf /usr/local/include/rdaf
+  sudo rm -rf /usr/local/etc/rdaf
+  sudo rm -rf /usr/local/share/root
+  sudo rm -rf /usr/local/share/doc/root
+  sudo rm -rf /usr/local/bin/rdaf
+}
+
 function deleteall {
   sudo rm /usr/local/lib/libboost*
   sudo rm /usr/local/lib/libchardir*
@@ -616,6 +677,8 @@ function deleteall {
   sudo rm /usr/local/lib/libsodium*
   sudo rm -rf /usr/local/lib/libnl*
   sudo rm -rf /usr/local/include/libnl3
+
+  rdaf_clean
   }
 
 case "$2" in
@@ -701,8 +764,13 @@ case "$1" in
     libnl
     ;;
 
+  rdaf)
+    base
+    rdaf
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl|rdaf} [clean]\n\n"
     ;;
   esac
 
