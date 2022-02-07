@@ -637,6 +637,7 @@ function rdaf {
     # cmake --build . --target install -- -j2
     cmake --build . -- -j2
     sudo cmake --build . --target install
+    sudo echo "/usr/local/lib/rdaf" > /etc/ld.so.conf.d/rdaf.conf
     sudo ldconfig
   popd
 
