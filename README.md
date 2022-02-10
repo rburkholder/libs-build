@@ -8,7 +8,10 @@ As of 2016/09/25, it works with the Trade-Frame project:
 
 ```
 ./build.sh tradeframe
+./build.sh rdaf
 ```
+
+* rdaf is Cern's ROOT Data Analysis Framework.  Currently this is a required install.  Note that it does take a while to download & build.  At some point, I'll figure out how to turn it into a conditional download & build.  It is used for a project in the rdaf subdirectory.
 
 This script requires bash, and is tested on:
 * Debian Stretch x64
