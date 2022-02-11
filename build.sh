@@ -609,8 +609,8 @@ function rdaf {
     libgraphviz-dev \
     libcaffe-dev
 
-  if [ "1" == "${clean}" ] then
-    rdaf_clean
+  if [ "1" == "${clean}" ] 
+    then rdaf_clean
     fi
 
   if [ -d rdaf ]
@@ -643,7 +643,7 @@ function rdaf {
 
 }
 
-rdaf_clean {
+function rdaf_clean {
   sudo rm -rf /usr/local/include/rdaf
   sudo rm -rf /usr/local/lib/rdaf
   sudo rm -rf /usr/local/include/rdaf
