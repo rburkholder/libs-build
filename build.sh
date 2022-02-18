@@ -626,6 +626,8 @@ function rdaf {
     cmake \
       -Dgnuinstall=ON \
       -DCMAKE_CXX_STANDARD=17 \
+      -DCMAKE_CXX_STANDARD_REQUIRED=ON \
+      -DLLVM_ENABLE_THREADS=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr/local/rdaf \
       -DCMAKE_INSTALL_LIBDIR=/usr/local/lib/rdaf \
