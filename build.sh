@@ -625,6 +625,7 @@ function rdaf {
     # -DCMAKE_BUILD_TYPE=[Release|MinSizeRel|Debug|RelWithDebInfo|Optimized]
     cmake \
       -Dgnuinstall=ON \
+      -imt=ON \
       -DCMAKE_CXX_STANDARD=17 \
       -DCMAKE_CXX_STANDARD_REQUIRED=ON \
       -DLLVM_ENABLE_THREADS=ON \
