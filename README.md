@@ -42,3 +42,6 @@ myuser ALL=(ALL) NOPASSWD: ALL
 ```
 
 More info at https://stackoverflow.com/questions/21659637/how-to-fix-sudo-no-tty-present-and-no-askpass-program-specified-error
+
+NOTE: there is '-march=native' in some builds, so the code is not necessarily between CPUs of different types
+
