@@ -626,6 +626,7 @@ function rdaf {
     cmake \
       -Dgnuinstall=ON \
       -imt=ON \
+      -march=native \
       -DCMAKE_CXX_STANDARD=17 \
       -DCMAKE_CXX_STANDARD_REQUIRED=ON \
       -DLLVM_ENABLE_THREADS=ON \
