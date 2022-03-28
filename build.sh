@@ -624,22 +624,22 @@ function rdaf {
     cd _build
     # -DCMAKE_BUILD_TYPE=[Release|MinSizeRel|Debug|RelWithDebInfo|Optimized]
     cmake \
-      -Dgnuinstall=ON \
-      -imt=ON \
-      -DCMAKE_CXX_FLAGS="-march=native" \
-      -DCMAKE_CXX_STANDARD=17 \
-      -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-      -DLLVM_ENABLE_THREADS=ON \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=/usr/local/rdaf \
-      -DCMAKE_INSTALL_LIBDIR=/usr/local/lib/rdaf \
-      -DCMAKE_INSTALL_INCLUDEDIR=/usr/local/include/rdaf \
-      -DCMAKE_INSTALL_SYSCONFDIR=/usr/local/etc/rdaf \
-      -DCMAKE_INSTALL_DATAROOTDIR=/usr/local/share \
-      -DCMAKE_INSTALL_BINDIR=/usr/local/bin/rdaf \
+      -D gnuinstall=ON \
+      -D imt=ON \
+      -D CMAKE_CXX_FLAGS="-march=native" \
+      -D CMAKE_CXX_STANDARD=17 \
+      -D CMAKE_CXX_STANDARD_REQUIRED=ON \
+      -D LLVM_ENABLE_THREADS=ON \
+      -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_INSTALL_PREFIX=/usr/local/rdaf \
+      -D CMAKE_INSTALL_LIBDIR=/usr/local/lib/rdaf \
+      -D CMAKE_INSTALL_INCLUDEDIR=/usr/local/include/rdaf \
+      -D CMAKE_INSTALL_SYSCONFDIR=/usr/local/etc/rdaf \
+      -D CMAKE_INSTALL_DATAROOTDIR=/usr/local/share \
+      -D CMAKE_INSTALL_BINDIR=/usr/local/bin/rdaf \
       ..
     # cmake --build . --target install -- -j2
-    cmake --build . -- -j2
+    cmake --build . -- -j4
     sudo cmake --build . --target install
     sudo echo "/usr/local/lib/rdaf" > /etc/ld.so.conf.d/rdaf.conf
     sudo ldconfig
