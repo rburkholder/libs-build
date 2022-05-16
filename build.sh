@@ -568,8 +568,11 @@ function vmime {
   pushd vmime
   mkdir build
   cd build
-  sudo apt install libgsasl7-dev libgnutls30 libgnutls28-dev ninja-build
-  cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+  sudo apt install libgsasl7-dev libgnutls30 libgnutls28-dev ninja-build doxygen libssl-dev
+  cmake -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DVMIME_HAVE_MESSAGING_PROTO_SENDMAIL=off \
+    ..
   cmake --build .
   sudo ninja install
   popd
