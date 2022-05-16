@@ -194,7 +194,7 @@ function build_szip {
 
   }
 
-zlib_ver="1.2.11"
+zlib_ver="1.2.12"
 zlib_name="zlib-${zlib_ver}"
 zlib_arc="${zlib_name}.tar.gz"
 
@@ -421,7 +421,7 @@ function build_wt {
       zlib1g-dev \
       zlib1g \
       libbz2-dev \
-      python-dev \
+      python-dev-is-python3 \
       libgraphviz-dev \
       libicu-dev \
       cmake \
@@ -495,7 +495,7 @@ function boost {
     zlib1g-dev \
     zlib1g \
     libbz2-dev \
-    python-dev \
+    python-dev-is-python3 \
     libicu-dev
  
   zlib
@@ -564,7 +564,7 @@ function cassandra {
 }
 
 function vmime {
-  git clone git://github.com/kisli/vmime
+  git clone https://github.com/kisli/vmime.git
   pushd vmime
   mkdir build
   cd build
