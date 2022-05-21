@@ -103,7 +103,7 @@ function build_wxwidgets {
       pushd ${wxwidgets_name}
       mkdir buildNormal
       cd buildNormal
-      ../configure --enable-threads --with-gtk=3 --enable-stl --with-opengl --with-libpng CXXFLAGS=-Ofast
+      ../configure --enable-threads --with-gtk=3 --enable-stl --with-opengl --with-libpng CXXFLAGS='-Ofast -std=c++17'
       make
       sudo make install
       sudo ldconfig
@@ -436,9 +436,13 @@ function build_wt {
       libmagick++-dev \
       libglew-dev
 
+
+    # for ounl.web: {need to use different section}
+    sudo apt-get -y install libpam0g-dev
+
     build_libharu
 
-    git clone git://github.com/kdeforche/wt.git
+    git clone https://github.com/kdeforche/wt.git
     pushd wt
     mkdir build
     cd build
