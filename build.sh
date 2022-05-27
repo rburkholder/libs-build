@@ -615,7 +615,9 @@ function rdaf {
     libtbb-dev \
     libtorch-dev \
     libgraphviz-dev \
-    libcaffe-dev
+    libcaffe-dev \
+    libssl-dev \
+    libxml2-dev
 
   if [ "1" == "${clean}" ] 
     then rdaf_clean
@@ -624,7 +626,7 @@ function rdaf {
   if [ -d rdaf ]
     then echo directory rdaf exists, perform pull instead
     else
-      git clone --branch latest-stable https://github.com/root-project/root.git rdaf
+      git clone --branch v6-24-00-patches  https://github.com/root-project/root.git rdaf
       fi
 
   pushd rdaf
