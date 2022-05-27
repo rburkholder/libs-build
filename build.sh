@@ -424,7 +424,6 @@ function build_wt {
       python-dev-is-python3 \
       libgraphviz-dev \
       libicu-dev \
-      cmake \
       libgd-dev \
       libssl-dev \
       autoconf \
@@ -481,7 +480,7 @@ function build_wt {
   }
 
 function base {
-  sudo apt-get -y install git build-essential g++ wget
+  sudo apt-get -y install git build-essential g++ wget cmake
   }
 
 function zlib {
@@ -601,10 +600,12 @@ function libnl {
 # CERN's ROOT Data Analysis Framework
 function rdaf {
 
+  #sudo apt install --no-install-recommends \ not much difference here
   sudo apt install \
     libxxhash-dev \
     libgsl-dev gsl-bin \
     libgl2ps-dev \
+    libxpm-dev \
     libsqlite3-dev \
     libfftw3-dev \
     libcfitsio-dev \
