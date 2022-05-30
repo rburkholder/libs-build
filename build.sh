@@ -613,11 +613,13 @@ function rdaf {
     libftgl-dev \
     davix-dev \
     libtbb-dev \
-    libtorch-dev \
     libgraphviz-dev \
-    libcaffe-dev \
     libssl-dev \
     libxml2-dev
+
+#  these won't install as of 2022/05/27 in bookworm
+#    libtorch-dev \
+#    libcaffe-dev \
 
   if [ "1" == "${clean}" ] 
     then rdaf_clean
@@ -626,6 +628,7 @@ function rdaf {
   if [ -d rdaf ]
     then echo directory rdaf exists, perform pull instead
     else
+      # version issue at https://github.com/root-project/root/issues/10578 2022/05/27
       git clone --branch v6-24-00-patches  https://github.com/root-project/root.git rdaf
       fi
 
@@ -651,6 +654,7 @@ function rdaf {
     # cmake --build . --target install -- -j2
     cmake --build . -- -j4
     sudo cmake --build . --target install
+    # this doesn't seem to work and needs to be run manually, or use touch & sed, or cat
     sudo echo "/usr/local/lib/rdaf" > /etc/ld.so.conf.d/rdaf.conf
     sudo ldconfig
   popd
