@@ -663,13 +663,12 @@ function rdaf {
 }
 
 function rdaf_clean {
-  sudo rm -rf /usr/local/include/rdaf
-  sudo rm -rf /usr/local/lib/rdaf
-  sudo rm -rf /usr/local/include/rdaf
-  sudo rm -rf /usr/local/etc/rdaf
-  sudo rm -rf /usr/local/share/root
-  sudo rm -rf /usr/local/share/doc/root
   sudo rm -rf /usr/local/bin/rdaf
+  sudo rm -rf /usr/local/etc/rdaf
+  sudo rm -rf /usr/local/lib/rdaf
+  sudo rm -rf /usr/local/share/root
+  sudo rm -rf /usr/local/include/rdaf
+  sudo rm -rf /usr/local/share/doc/root
 }
 
 function deleteall {
