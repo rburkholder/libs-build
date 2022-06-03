@@ -654,8 +654,9 @@ function rdaf {
     # cmake --build . --target install -- -j2
     cmake --build . -- -j4
     sudo cmake --build . --target install
-    # this doesn't seem to work and needs to be run manually, or use touch & sed, or cat
-    sudo echo "/usr/local/lib/rdaf" > /etc/ld.so.conf.d/rdaf.conf
+
+    echo "/usr/local/lib/rdaf" > rdaf.conf.tmp
+    sudo mv rdaf.conf.tmp /etc/ld.so.conf.d/rdaf.conf 
     sudo ldconfig
   popd
 
