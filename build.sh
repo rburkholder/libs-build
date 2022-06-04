@@ -657,6 +657,7 @@ function rdaf {
 
     echo "/usr/local/lib/rdaf" > rdaf.conf.tmp
     sudo mv rdaf.conf.tmp /etc/ld.so.conf.d/rdaf.conf 
+    sudo chown root.root /etc/ld.so.conf.d/rdaf.conf
     sudo ldconfig
   popd
 
