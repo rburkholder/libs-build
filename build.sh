@@ -629,7 +629,8 @@ function rdaf {
     then echo directory rdaf exists, perform pull instead
     else
       # version issue at https://github.com/root-project/root/issues/10578 2022/05/27
-      git clone --branch v6-26-00-patches  https://github.com/root-project/root.git rdaf
+      #git clone --branch v6-26-00-patches  https://github.com/root-project/root.git rdaf
+      git clone https://github.com/root-project/root.git rdaf
       fi
 
   pushd rdaf
