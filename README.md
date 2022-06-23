@@ -11,6 +11,8 @@ As of 2016/09/25, it works with the Trade-Frame project:
 ./build.sh rdaf
 ```
 
+NOTE: 2022/06/22 manually edit to change wxwidgets from 3.1.7 to 3.0.5 to match requirements of trade-frame.  3.1.7 is used with a private repository at this point.
+
 * rdaf is Cern's ROOT Data Analysis Framework.  Currently this is a required install.  Note that it does take a while to download & build.  At some point, I'll figure out how to turn it into a conditional download & build.  It is used for a project in the rdaf subdirectory.
 
 This script requires bash, and is tested on:
