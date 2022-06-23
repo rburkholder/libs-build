@@ -59,7 +59,8 @@ function build_boost {
 
   }
 
-wxwidgets_ver='3.0.5'
+#wxwidgets_ver='3.0.5'
+wxwidgets_ver='3.1.7'
 wxwidgets_name="wxWidgets-${wxwidgets_ver}"
 wxwidgets_tar="${wxwidgets_name}.tar"
 wxwidgets_bz2="${wxwidgets_tar}.bz2"
@@ -88,8 +89,8 @@ function obtain_wxwidgets {
     else
       tar xvf ${wxwidgets_tar}
       # note this applies to wxwidgets 3.0.2 where an older scintilla is included, recent versions are fixed
-      sed -i 's/(abs(pt1/(std::abs(pt1/g' ${wxwidgets_name}/src/stc/scintilla/src/Editor.cxx
-      sed -i '/include <string>/i #include <cmath>' ${wxwidgets_name}/src/stc/scintilla/src/Editor.cxx
+      #sed -i 's/(abs(pt1/(std::abs(pt1/g' ${wxwidgets_name}/src/stc/scintilla/src/Editor.cxx
+      #sed -i '/include <string>/i #include <cmath>' ${wxwidgets_name}/src/stc/scintilla/src/Editor.cxx
       fi
 
   }
@@ -680,24 +681,25 @@ function deleteall {
   sudo rm -rf /usr/local/lib/fonts
   sudo rm /usr/local/lib/libz*
   sudo rm -rf /usr/local/lib/pkgconfig
-  sudo rm /usr/local/lib/libwx*
   sudo rm /usr/local/lib/libsz*
   sudo rm /usr/local/lib/libhdf5*
-  sudo rm -rf /usr/local/lib/wx
   sudo rm -rf /usr/local/include/hdf5
-  sudo rm -rf /usr/local/include/wx*
   sudo rm -rf /usr/local/include/boost*
   sudo rm -rf /usr/local/include/zlib
   sudo rm -rf /usr/local/include/chartdir
   sudo rm /usr/local/include/sz*
   sudo rm /usr/local/include/ricehdf*
   sudo rm /usr/local/bin/h5*
-  sudo rm /usr/local/bin/wx*
   sudo rm -rf /usr/local/share/hdf5*
   sudo rm /usr/local/include/sodium
   sudo rm /usr/local/lib/libsodium*
   sudo rm -rf /usr/local/lib/libnl*
   sudo rm -rf /usr/local/include/libnl3
+
+  sudo rm /usr/local/lib/libwx*
+  sudo rm -rf /usr/local/include/wx*
+  sudo rm /usr/local/bin/wx*
+  sudo rm -rf /usr/local/lib/wx
 
   rdaf_clean
   }
