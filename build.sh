@@ -598,6 +598,10 @@ function libnl {
   # libnl/doc/api/index.html for start of documentation
 }
 
+function sound {
+  sudo apt install portaudio19-dev
+}
+
 # CERN's ROOT Data Analysis Framework
 function rdaf {
 
@@ -754,6 +758,7 @@ case "$1" in
     wx
     hdf5
     chartdir
+    sound
     ;;
 
   nodestar)
