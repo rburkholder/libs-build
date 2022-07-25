@@ -753,7 +753,7 @@ case "$1" in
 
   tradeframe)
     base
-    sudo apt-get -y install libcurl4-openssl-dev libintelrdfpmath-dev gnulib
+    sudo apt-get -y install libcurl4-openssl-dev libintelrdfpmath-dev gnulib libcrypto++-dev
     boost
     wx
     hdf5

@@ -16,8 +16,8 @@ NOTE: 2022/06/22 manually edit to change wxwidgets from 3.1.7 to 3.0.5 to match 
 * rdaf is Cern's ROOT Data Analysis Framework.  Currently this is a required install.  Note that it does take a while to download & build.  At some point, I'll figure out how to turn it into a conditional download & build.  It is used for a project in the rdaf subdirectory.
 
 This script requires bash, and is tested on:
-* Debian Stretch x64
 * Debian Buster x64
+* Debian Bullseye x64
 
 The library manager apt-get is used extensively.
 
@@ -45,5 +45,5 @@ myuser ALL=(ALL) NOPASSWD: ALL
 
 More info at https://stackoverflow.com/questions/21659637/how-to-fix-sudo-no-tty-present-and-no-askpass-program-specified-error
 
-NOTE: there is '-march=native' in some builds, so the code is not necessarily between CPUs of different types
+NOTE: there is '-march=native' in some builds, so the code is not necessarily compatible between CPUs of different types
 
