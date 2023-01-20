@@ -430,6 +430,7 @@ function build_wt {
       autoconf \
       libgraphicsmagick++1-dev \
       libpq-dev \
+      unixodbc-dev \
       libpango1.0-dev \
       liblzma-dev \
       imagemagick \
@@ -599,7 +600,7 @@ function libnl {
 }
 
 function sound {
-  sudo apt install portaudio19-dev
+  sudo apt-get -y install portaudio19-dev
 }
 
 # CERN's ROOT Data Analysis Framework
@@ -634,8 +635,8 @@ function rdaf {
     then echo directory rdaf exists, perform pull instead
     else
       # version issue at https://github.com/root-project/root/issues/10578 2022/05/27
-      #git clone --branch v6-26-00-patches  https://github.com/root-project/root.git rdaf
-      git clone https://github.com/root-project/root.git rdaf
+      #git clone -depth 1 --branch v6-26-00-patches  https://github.com/root-project/root.git rdaf
+      git clone --depth 1 https://github.com/root-project/root.git rdaf
       fi
 
   pushd rdaf
