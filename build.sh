@@ -60,7 +60,9 @@ function build_boost {
   }
 
 #wxwidgets_ver='3.0.5'
-wxwidgets_ver='3.1.7'
+#wxwidgets_ver='3.1.7'
+wxwidgets_ver_major='3.2'
+wxwidgets_ver="${wxwidgets_ver_major=}.2"
 wxwidgets_name="wxWidgets-${wxwidgets_ver}"
 wxwidgets_tar="${wxwidgets_name}.tar"
 wxwidgets_bz2="${wxwidgets_tar}.bz2"
@@ -107,8 +109,11 @@ function build_wxwidgets {
       ../configure --enable-threads --with-gtk=3 --enable-stl --with-opengl --with-libpng CXXFLAGS='-Ofast -std=c++17'
       make
       sudo make install
-      sudo ldconfig
       # use sudo ldconfig -p to see which are installed
+      sudo ldconfig
+        pushd /usr/local/include`
+        sudo ln -s wx-${wxwidgets_ver_major} wx
+        popd
       popd
     else echo ${wxwidgets_name} does not exist, no build 
       fi
@@ -389,8 +394,11 @@ function build_libharu {
       # move as the expanded directory has a serial number attached
       mv `ls -Ad libharu-*` libharu
       pushd libharu
-      ./buildconf.sh --force
-      ./configure --with-zlib --with-ping
+      mkdir build
+      cd build
+      cmake ..
+      #./buildconf.sh --force
+      #./configure --with-zlib --with-ping
       make
       sudo make install
 
