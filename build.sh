@@ -111,8 +111,8 @@ function build_wxwidgets {
       sudo make install
       # use sudo ldconfig -p to see which are installed
       sudo ldconfig
-        pushd /usr/local/include`
-        sudo ln -s wx-${wxwidgets_ver_major} wx
+        pushd /usr/local/include
+        sudo ln -s wx-${wxwidgets_ver_major}/wx wx
         popd
       popd
     else echo ${wxwidgets_name} does not exist, no build 
@@ -278,8 +278,9 @@ function build_zlib {
   
   }
 
+# https://portal.hdfgroup.org/display/support/Downloads
 #hdf5_ver="1.8.21"
-hdf5_ver="1.10.5"
+hdf5_ver="1.10.9"
 hdf5_name="hdf5-${hdf5_ver}"
 hdf5_arc="${hdf5_name}.tar.gz"
 
@@ -301,7 +302,9 @@ function build_hdf5 {
     then echo ${hdf5_arc} exists
     else
 #      wget http://www.hdfgroup.org/ftp/HDF5/current18/src/${hdf5_arc}
-      wget https://support.hdfgroup.org/ftp/HDF5/current/src/${hdf5_arc}
+#      wget https://support.hdfgroup.org/ftp/HDF5/current/src/${hdf5_arc}
+#      wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.9/src/hdf5-1.10.9.tar.gz
+      wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/${hdf5_name}/src/${hdf5_arc}
       fi
 
   if [ -d ${hdf5_name} ]
