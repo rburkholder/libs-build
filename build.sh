@@ -454,7 +454,7 @@ function build_wt {
 
     build_libharu
 
-    git clone https://github.com/kdeforche/wt.git
+    git clone --depth 1 https://github.com/kdeforche/wt.git
     pushd wt
     mkdir build
     cd build
