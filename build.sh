@@ -690,6 +690,35 @@ function rdaf_clean {
   sudo rm -rf /usr/local/share/doc/root
 }
 
+# telegram API for notifications
+# based upon commands generated at:
+#   https://tdlib.github.io/td/build.html?language=C%2B%2B
+function telegram {
+  sudo apt install \
+    make \
+    git \
+    zlib1g-dev \
+    libssl-dev \
+    gperf \
+    php-cli \
+    cmake \
+    g++
+
+  git clone --depth 1 https://github.com/tdlib/td.git
+  pushd td
+  rm -rf build
+  mkdir build
+  cd build
+  cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -D CMAKE_CXX_STANDARD=17 \
+    -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
+    ..
+  cmake --build . -- -j4
+  sudo cmake --build . --target install
+  popd
+}
+
 function deleteall {
   sudo rm /usr/local/lib/libboost*
   sudo rm /usr/local/lib/libchardir*
@@ -809,8 +838,13 @@ case "$1" in
     rdaf
     ;;
 
+  telegram)
+    base
+    telegram
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl|rdaf} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl|rdaf|telegram} [clean]\n\n"
     ;;
   esac
 
