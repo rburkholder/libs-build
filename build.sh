@@ -200,7 +200,7 @@ function build_szip {
 
   }
 
-zlib_ver="1.2.12"
+zlib_ver="1.2.13"
 zlib_name="zlib-${zlib_ver}"
 zlib_arc="${zlib_name}.tar.gz"
 
