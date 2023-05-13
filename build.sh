@@ -62,7 +62,7 @@ function build_boost {
 #wxwidgets_ver='3.0.5'
 #wxwidgets_ver='3.1.7'
 wxwidgets_ver_major='3.2'
-wxwidgets_ver="${wxwidgets_ver_major=}.2"
+wxwidgets_ver="${wxwidgets_ver_major=}.2.1"
 wxwidgets_name="wxWidgets-${wxwidgets_ver}"
 wxwidgets_tar="${wxwidgets_name}.tar"
 wxwidgets_bz2="${wxwidgets_tar}.bz2"
