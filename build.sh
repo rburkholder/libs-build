@@ -369,10 +369,10 @@ function install_chartdir {
     else
       tar zxvf ${chartdir_arc}
 
-      sudo chown -R root.staff ChartDirector/include
+      sudo chown -R root:staff ChartDirector/include
       sudo mv ChartDirector/include /usr/local/include/chartdir
 
-      sudo chown -R root.staff ChartDirector/lib/*
+      sudo chown -R root:staff ChartDirector/lib/*
       sudo mv ChartDirector/lib/* /usr/local/lib/
 
       fi
