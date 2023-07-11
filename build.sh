@@ -800,6 +800,7 @@ case "$1" in
     hdf5
     chartdir
     sound
+    telegram
     ;;
 
   nodestar)
