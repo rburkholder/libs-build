@@ -695,12 +695,12 @@ function rdaf_clean {
 #   https://tdlib.github.io/td/build.html?language=C%2B%2B
 function telegram {
   sudo apt install \
+    --no-install-recommends \
     make \
     git \
     zlib1g-dev \
     libssl-dev \
     gperf \
-    php-cli \
     cmake \
     g++
 
@@ -711,6 +711,7 @@ function telegram {
   cd build
   cmake \
     -DCMAKE_BUILD_TYPE=Release \
+    -DTD_ENABLE_JNI=OFF \
     -D CMAKE_CXX_STANDARD=17 \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
     ..
