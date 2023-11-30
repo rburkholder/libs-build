@@ -585,7 +585,7 @@ function vmime {
   pushd vmime
   mkdir build
   cd build
-  sudo apt install libgsasl7-dev libgnutls30 libgnutls28-dev ninja-build doxygen libssl-dev
+  sudo apt -y install libgsasl7-dev libgnutls30 libgnutls28-dev ninja-build doxygen libssl-dev
   cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DVMIME_HAVE_MESSAGING_PROTO_SENDMAIL=off \
@@ -619,7 +619,7 @@ function sound {
 function rdaf {
 
   #sudo apt install --no-install-recommends \ not much difference here
-  sudo apt install \
+  sudo apt -y install \
     libxxhash-dev \
     libgsl-dev gsl-bin \
     libgl2ps-dev \
@@ -695,7 +695,7 @@ function rdaf_clean {
 # based upon commands generated at:
 #   https://tdlib.github.io/td/build.html?language=C%2B%2B
 function telegram {
-  sudo apt install \
+  sudo apt -y install \
     --no-install-recommends \
     make \
     git \
@@ -713,6 +713,7 @@ function telegram {
   cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DTD_ENABLE_JNI=OFF \
+    -DTD_ENABLE_DOTNET=OFF \
     -D CMAKE_CXX_STANDARD=17 \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
     ..
