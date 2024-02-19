@@ -629,6 +629,7 @@ function repertory {
     -D OU_USE_Telegram=ON \
     ..
   sudo cmake --build . --target=install
+  popd
 }
 
 # CERN's ROOT Data Analysis Framework
