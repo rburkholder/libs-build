@@ -615,6 +615,22 @@ function sound {
   sudo apt-get -y install portaudio19-dev
 }
 
+function repertory {
+  sudo apt install libpaho-mqtt-dev
+  git clone https://github.com/rburkholder/repertory.git
+  pushd repertory
+  mkdir build
+  cd build
+  cmake \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D OU_USE_STATIC_LIB=ON \
+    -D OU_USE_SHARED_LIB=OFF \
+    -D OU_USE_MQTT=ON \
+    -D OU_USE_Telegram=ON \
+    ..
+  sudo cmake --build . --target=install
+}
+
 # CERN's ROOT Data Analysis Framework
 function rdaf {
 
@@ -803,7 +819,7 @@ case "$1" in
     hdf5
     chartdir
     sound
-    telegram
+    repertory
     ;;
 
   nodestar)
@@ -845,6 +861,10 @@ case "$1" in
   telegram)
     base
     telegram
+    ;;
+
+  repertory)
+    repertory
     ;;
 
   *)
