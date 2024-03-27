@@ -201,7 +201,8 @@ function build_szip {
 
   }
 
-zlib_ver="1.3"
+# https://zlib.net/
+zlib_ver="1.3.1"
 zlib_name="zlib-${zlib_ver}"
 zlib_arc="${zlib_name}.tar.gz"
 
