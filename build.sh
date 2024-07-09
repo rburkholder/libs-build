@@ -617,7 +617,7 @@ function sound {
 }
 
 function repertory {
-  sudo apt install libpaho-mqtt-dev libssl-dev
+  sudo apt -y install libpaho-mqtt-dev libssl-dev
   git clone https://github.com/rburkholder/repertory.git
   pushd repertory
   mkdir build
