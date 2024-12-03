@@ -616,6 +616,15 @@ function sound {
   sudo apt-get -y install portaudio19-dev
 }
 
+function lua {
+  git clone --depth=1 https://github.com/LuaJIT/LuaJIT.git
+  pushd LuaJIT
+  sed -i 's/#XCFLAGS+= -DLUAJIT_ENABLE_LUA52COMPAT/XCFLAGS+= -DLUAJIT_ENABLE_LUA52COMPAT/' src/Makefile
+  make
+  sudo make install
+  popd
+}
+
 function repertory {
   sudo apt -y install libpaho-mqtt-dev libssl-dev
   git clone https://github.com/rburkholder/repertory.git
@@ -869,8 +878,12 @@ case "$1" in
     repertory
     ;;
 
+  lua)
+    lua
+    ;;
+
   *)
-    printf "\nusage:  ./build.sh {base|boost|wx|glm|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl|rdaf|telegram} [clean]\n\n"
+    printf "\nusage:  ./build.sh {base|boost|wx|glm|lua|hdf5|chartdir|wt|zlib|multimedia|tradeframe|libsodium|cassandra|vmime|libnl|rdaf|telegram} [clean]\n\n"
     ;;
   esac
 
