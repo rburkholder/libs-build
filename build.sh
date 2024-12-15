@@ -623,6 +623,12 @@ function lua {
   make
   sudo make install
   popd
+
+  # skipping the recursion, only looking for header files
+  git clone --depth=1 https://github.com/vinniefalco/LuaBridge.git
+  pushd LuaBridge
+  sudo cp -r Source/LuaBridge /usr/local/include/
+  popd
 }
 
 function repertory {
