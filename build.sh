@@ -617,6 +617,7 @@ function sound {
 }
 
 function lua {
+  # acquire, build & install luajit
   git clone --depth=1 https://github.com/LuaJIT/LuaJIT.git
   pushd LuaJIT
   sed -i 's/#XCFLAGS+= -DLUAJIT_ENABLE_LUA52COMPAT/XCFLAGS+= -DLUAJIT_ENABLE_LUA52COMPAT/' src/Makefile
@@ -624,11 +625,9 @@ function lua {
   sudo make install
   popd
 
-  # skipping the recursion, only looking for header files
-  git clone --depth=1 https://github.com/vinniefalco/LuaBridge.git
-  pushd LuaBridge
-  sudo cp -r Source/LuaBridge /usr/local/include/
-  popd
+  # acquire sol2 (lua helpers for c++)
+  git clone --depth=1 https://github.com/ThePhD/sol2.git
+  sudo mv -n sol2/include/sol /usr/local/include/
 }
 
 function repertory {
