@@ -836,6 +836,7 @@ case "$1" in
     chartdir
     sound
     repertory
+    lua
     ;;
 
   nodestar)
