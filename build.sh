@@ -560,6 +560,7 @@ function libsodium {
    make
    #make check
    sudo make install
+   sudo ldconfig
    popd
   }
 
