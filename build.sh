@@ -238,6 +238,7 @@ function build_zlib {
     else
   
       sudo rm -rf /usr/local/include/zlib
+      sudo mkdir -p /usr/local/include/zlib
 
       git clone https://github.com/rburkholder/ioapi_mem.git 
 
