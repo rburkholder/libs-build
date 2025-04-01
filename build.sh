@@ -265,6 +265,7 @@ function build_zlib {
 
       #./configure --64 --static --prefix=/usr/local --includedir=/usr/local/include/zlib
       ./configure --64 --prefix=/usr/local --includedir=/usr/local/include/zlib
+      sed -i "s/DHAVE_HIDDEN$/DHAVE_HIDDEN -Wno-incompatible-pointer-types/g" Makefile
       make
       sudo make install
       
