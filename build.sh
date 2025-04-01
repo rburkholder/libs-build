@@ -179,7 +179,8 @@ function build_szip {
   if [ -e ${szip_arc} ]
     then echo ${szip_arc} exists
     else 
-      wget https://www.hdfgroup.org/ftp/lib-external/szip/${szip_ver}/src/${szip_arc}
+      wget https://docs.hdfgroup.org/archive/support/ftp/lib-external/szip/${szip_ver}/src/${szip_arc}
+      #wget https://www.hdfgroup.org/ftp/lib-external/szip/${szip_ver}/src/${szip_arc}
       fi
 
   if [ -d ${szip_name} ]
