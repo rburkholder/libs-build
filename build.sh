@@ -674,6 +674,8 @@ function rdaf {
 #  these won't install as of 2022/05/27 in bookworm
 #    libtorch-dev \
 #    libcaffe-dev \
+# instead, use download link at:
+# https://pytorch.org/get-started/locally/ 
 
   if [ "1" == "${clean}" ] 
     then rdaf_clean
