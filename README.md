@@ -45,3 +45,5 @@ As of 2021/09/25, CERN's ROOT Data Analysis Framework works with the Trade-Frame
 ./build.sh tradeframe
 ./build.sh rdaf
 ```
+
+2025/08/17 Note: look at [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) as a possible substitute for this bash script, saw it referenced in [lemire's csqlite example](https://github.com/lemire/csqlite).
