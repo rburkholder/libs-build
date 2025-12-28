@@ -12,7 +12,7 @@
 #   optional verbose
 #   optional clean up / removal of old source
 
-boost_ver='1.81.0'
+boost_ver='1.90.0'
 boost_ver_us=${boost_ver//\./_}
 boost_tar="boost_${boost_ver_us}.tar.gz"
 boost_dir="boost_${boost_ver_us}"
@@ -63,7 +63,7 @@ function build_boost {
 #wxwidgets_ver='3.0.5'
 #wxwidgets_ver='3.1.7'
 wxwidgets_ver_major='3.2'
-wxwidgets_ver="${wxwidgets_ver_major=}.8"
+wxwidgets_ver="${wxwidgets_ver_major=}.9"
 wxwidgets_name="wxWidgets-${wxwidgets_ver}"
 wxwidgets_tar="${wxwidgets_name}.tar"
 wxwidgets_bz2="${wxwidgets_tar}.bz2"
@@ -108,7 +108,7 @@ function build_wxwidgets {
       mkdir buildNormal
       cd buildNormal
       ../configure --enable-threads --with-gtk=3 --enable-stl --with-opengl --with-libpng CXXFLAGS='-Ofast -std=c++17'
-      make
+      make -j4
       sudo make install
       # use sudo ldconfig -p to see which are installed
       sudo ldconfig
