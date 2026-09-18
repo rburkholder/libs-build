@@ -12,7 +12,7 @@
 #   optional verbose
 #   optional clean up / removal of old source
 
-boost_ver='1.90.0'
+boost_ver='1.92.0'
 boost_ver_us=${boost_ver//\./_}
 boost_tar="boost_${boost_ver_us}.tar.gz"
 boost_dir="boost_${boost_ver_us}"
@@ -63,7 +63,7 @@ function build_boost {
 #wxwidgets_ver='3.0.5'
 #wxwidgets_ver='3.1.7'
 wxwidgets_ver_major='3.2'
-wxwidgets_ver="${wxwidgets_ver_major=}.9"
+wxwidgets_ver="${wxwidgets_ver_major=}.11"
 wxwidgets_name="wxWidgets-${wxwidgets_ver}"
 wxwidgets_tar="${wxwidgets_name}.tar"
 wxwidgets_bz2="${wxwidgets_tar}.bz2"
@@ -241,7 +241,7 @@ function build_zlib {
       sudo rm -rf /usr/local/include/zlib
       sudo mkdir -p /usr/local/include/zlib
 
-      git clone https://github.com/rburkholder/ioapi_mem.git 
+      git clone --depth=1 https://github.com/rburkholder/ioapi_mem.git 
 
       ln -s ioapi_mem/ioapi_mem.c ioapi_mem.c
       ln -s ioapi_mem/ioapi_mem.h ioapi_mem.h
@@ -459,7 +459,7 @@ function build_wt {
 
     build_libharu
 
-    git clone --depth 1 https://github.com/kdeforche/wt.git
+    git clone --depth=1 https://github.com/kdeforche/wt.git
     pushd wt
     mkdir build
     cd build
@@ -557,7 +557,7 @@ function multimedia {
 
 function libsodium {
    pushd
-   git clone https://github.com/jedisct1/libsodium --branch stable
+   git clone --depth=1 https://github.com/jedisct1/libsodium --branch stable
    cd libsodium/
    ./configure --with-pthreads
    make
@@ -568,8 +568,8 @@ function libsodium {
   }
 
 function cassandra {
-  sudo apt -y install libuv1-dev libssl-dev libssl1.1
-  git clone https://github.com/datastax/cpp-driver.git
+  sudo apt -y install libuv1-dev libssl-dev
+  git clone --depth=1 https://github.com/datastax/cpp-driver.git
   pushd cpp-driver
   mkdir build
   cd build
@@ -586,7 +586,7 @@ function cassandra {
 }
 
 function vmime {
-  git clone https://github.com/kisli/vmime.git
+  git clone --depth=1 https://github.com/kisli/vmime.git
   pushd vmime
   mkdir build
   cd build
@@ -604,7 +604,7 @@ function libnl {
   sudo apt install m4
   sudo apt install asciidoc source-highlight mscgen doxygen
   sudo apt install python-pygments python3-pygments
-  git clone https://github.com/thom311/libnl.git
+  git clone --depth=1 https://github.com/thom311/libnl.git
   pushd libnl
   ./autogen.sh
   ./configure
@@ -636,7 +636,7 @@ function lua {
 
 function repertory {
   sudo apt -y install libpaho-mqtt-dev libssl-dev
-  git clone https://github.com/rburkholder/repertory.git
+  git clone --depth=1 https://github.com/rburkholder/repertory.git
   pushd repertory
   mkdir build
   cd build
@@ -686,7 +686,7 @@ function rdaf {
     else
       # version issue at https://github.com/root-project/root/issues/10578 2022/05/27
       #git clone -depth 1 --branch v6-26-00-patches  https://github.com/root-project/root.git rdaf
-      git clone --depth 1 https://github.com/root-project/root.git rdaf
+      git clone --depth=1 https://github.com/root-project/root.git rdaf
       fi
 
   pushd rdaf
@@ -743,7 +743,7 @@ function telegram {
     cmake \
     g++
 
-  git clone --depth 1 https://github.com/tdlib/td.git
+  git clone --depth=1 https://github.com/tdlib/td.git
   pushd td
   rm -rf build
   mkdir build
